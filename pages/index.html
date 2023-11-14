@@ -10,7 +10,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style>
       #map {
-        height: 50%;
+        height: 80%;
       }
       html,
       body {
@@ -23,10 +23,9 @@
   <body>
     <div id="map"></div>
     <a
-      href="https://www.notion.so/airopi/Calanque-de-Morgeret-f48578931f114db38bf1e94ae102079b"
-    >
-      Test
-    </a>
+      href="https://airopi.notion.site/Halloween-en-ultra-HD-6119d2561dcf4deb8ae4e5b26d935bcd?pvs=4"
+      target="_blank"
+    ></a>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVB_UVy9Y-M54ZWcU8R6ywi156P2dmN8U&callback=initMap&v=weekly"
       defer
@@ -49,7 +48,7 @@
                 map: map,
               });
               marker.addListener("click", () => {
-                window.open("/redirect?url=" + element[3], "_blank");
+                window.open(element[3], "_blank");
               });
             });
           });

@@ -2,7 +2,7 @@ import os
 from typing import Any, Optional
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 
 from librairies.notion_api import NotionClient
 
@@ -83,11 +83,6 @@ async def locations():
 @app.get("/map")
 async def map():
     return HTMLResponse(PAGE)
-
-
-@app.get("/redirect")
-async def redirect(url: str):
-    return RedirectResponse(url=url)
 
 
 @app.get("/")
