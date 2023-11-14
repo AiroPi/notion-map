@@ -42,6 +42,9 @@
                 position: { lat: element[1], lng: element[2] },
                 title: element[0],
                 map: map,
+                onclick: function () {
+                  window.open(element[3], "_blank").focus();
+                },
               });
             });
           });
