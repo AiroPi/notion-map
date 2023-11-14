@@ -38,13 +38,13 @@
           .then((locations) => locations.json())
           .then((locations) => {
             locations.forEach((element) => {
-              new google.maps.Marker({
+              let marker = new google.maps.Marker({
                 position: { lat: element[1], lng: element[2] },
                 title: element[0],
                 map: map,
-                onclick: function () {
-                  window.open(element[3], "_blank").focus();
-                },
+              });
+              marker.addListener("click", () => {
+                window.open(element[3], "_blank").focus();
               });
             });
           });
