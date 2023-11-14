@@ -70,7 +70,7 @@ async def locations():
                 title["title"][0]["plain_text"],
                 latitude,
                 longitude,
-                l["url"],
+                l["public_url"],
             )
 
     locations = [
