@@ -1,5 +1,5 @@
 import os
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
@@ -27,7 +27,7 @@ notion_client = NotionClient(NOTION_API_KEY)
 class DatabaseGetter:
     def __init__(self, database_id: str):
         self.database_id = database_id
-        self._database_data: dict[str, Any] | None = None
+        self._database_data: Optional[dict[str, Any]] = None
 
     async def get(self) -> dict[str, Any]:
         if self._database_data is None:
@@ -60,7 +60,7 @@ async def locations():
     ) -> dict[str, Any]:
         return next(p for p in properties.values() if p["id"] == id)
 
-    def extract(l: dict[str, Any]) -> tuple[str, float, float, str] | None:
+    def extract(l: dict[str, Any]) -> Optional[tuple[str, float, float, str]]:
         longitude = l["properties"]["Longitude"]["number"]
         latitude = l["properties"]["Latitude"]["number"]
         title = get_property_by_id(l["properties"], "title")

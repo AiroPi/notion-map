@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, TypedDict, Union
 
 import httpx
 
@@ -27,7 +27,7 @@ class DatabaseQuerySortTimestamp(TypedDict):
     direction: Literal["ascending", "descending"]
 
 
-DatabaseQuerySort = DatabaseQuerySortProperty | DatabaseQuerySortTimestamp
+DatabaseQuerySort = Union[DatabaseQuerySortProperty, DatabaseQuerySortTimestamp]
 
 
 class NotionClient:
