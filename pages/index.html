@@ -44,7 +44,7 @@
                 map: map,
               });
               marker.addListener("click", () => {
-                window.open("/redirect?url=" + element[3]);
+                window.open("/redirect?url=" + element[3], "_self");
               });
             });
           });
