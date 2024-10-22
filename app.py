@@ -2,7 +2,7 @@ import os
 from typing import Any, Optional
 
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from librairies.notion_api import NotionClient
 
@@ -15,7 +15,9 @@ else:
 
 NOTION_API_KEY = os.environ["NOTION_API_KEY"]
 DATABASE_SOURCE_ID = os.environ["DATABASE_SOURCE_ID"]
-# COLUMN_NAME = os.environ["COLUMN_NAME"]
+
+# LATITUDE_COLUMN_NAME = "Latitude"
+# LONGITUDE_COLUMN_NAME = "Longitude2"
 
 with open("./pages/index.html", "r") as f:
     PAGE = f.read()
@@ -41,18 +43,18 @@ database = DatabaseGetter(DATABASE_SOURCE_ID)
 
 @app.get("/locations")
 async def locations():
-    db = await database.get()
-    latitude_column_id = next(
-        p["id"] for p in db["properties"].values() if p["name"] == "Latitude"
-    )
-    longitude_column_id = next(
-        p["id"] for p in db["properties"].values() if p["name"] == "Longitude"
-    )
+    # db = await database.get()
+    # latitude_column_id = next(
+    #     p["id"] for p in db["properties"].values() if p["name"] == LATITUDE_COLUMN_NAME
+    # )
+    # longitude_column_id = next(
+    #     p["id"] for p in db["properties"].values() if p["name"] == LONGITUDE_COLUMN_NAME
+    # )
 
     async with NotionClient(NOTION_API_KEY) as c:
         raw_locations = await c.query_database(
             DATABASE_SOURCE_ID,
-            filter_properties=[latitude_column_id, longitude_column_id, "title"],
+            # filter_properties=["title"],
         )
 
     def get_property_by_id(
@@ -87,4 +89,4 @@ async def map():
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return RedirectResponse("/map")

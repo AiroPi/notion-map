@@ -35,14 +35,16 @@ class NotionClient:
 
     def __init__(self, token: str):
         self.token = token
-        self.client = None
+        self.client: httpx.AsyncClient | None = None
 
     async def __aenter__(self):
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Notion-Version": "2022-06-28",
         }
-        self.client = await httpx.AsyncClient(headers=headers).__aenter__()
+        self.client = await httpx.AsyncClient(
+            headers=headers, default_encoding="utf-8"
+        ).__aenter__()
         return self
 
     async def __aexit__(self, *args: Any, **kwargs: Any):
